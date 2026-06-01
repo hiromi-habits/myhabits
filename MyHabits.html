@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="My Habits">
+<meta name="theme-color" content="#1a1a2e">
+<title>My Habits</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html,body{background:#1a1a2e !important;color:#e8e8f0;font-family:'Hiragino Sans','Noto Sans JP',sans-serif;min-height:100vh;}
+  button{font-family:inherit;cursor:pointer;color:inherit;}
+  input{font-family:inherit;}
+  #app{max-width:480px;margin:0 auto;padding-bottom:calc(40px + env(safe-area-inset-bottom));}
+  .header{display:flex;justify-content:space-between;align-items:center;padding:calc(24px + env(safe-area-inset-top)) 20px 10px;}
+  .h-title{font-size:26px;font-weight:800;letter-spacing:1px;color:#fff;}
+  .h-sub{font-size:12px;color:#b0b0cc;margin-top:2px;}
+  .icon-btn{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:10px;padding:8px 12px;font-size:18px;}
+  .countdown{display:flex;align-items:center;margin:0 16px 4px;background:#252540;border:1px solid rgba(255,255,255,0.15);border-radius:14px;padding:10px 16px;gap:12px;}
+  .cd-item{display:flex;align-items:center;gap:8px;flex:1;}
+  nav{display:flex;padding:8px 20px 4px;border-bottom:1px solid rgba(255,255,255,0.15);}
+  .tab{background:transparent;border:none;color:#9090b8;font-size:15px;font-weight:600;padding:8px 18px;border-bottom:2px solid transparent;transition:all .2s;}
+  .tab.active{color:#fff;border-bottom:2px solid #6366F1;}
+  .cards{padding:12px 16px;display:flex;flex-direction:column;gap:12px;}
+  .card{border-radius:18px;border:1px solid rgba(255,255,255,0.18);padding:16px 16px 14px;background:#252540;transition:all .3s;}
+  .card-top{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+  .c-icon{font-size:26px;line-height:1;}
+  .c-label{font-weight:700;font-size:15px;}
+  .c-goal{font-size:12px;color:#b0b0cc;margin-top:2px;}
+  .tag{font-size:10px;border-radius:6px;padding:1px 6px;}
+  .done-badge{font-size:13px;font-weight:700;}
+  .rm-btn{margin-left:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#d0d0e8;border-radius:8px;width:28px;height:28px;font-size:12px;display:flex;align-items:center;justify-content:center;}
+  .bar-bg{height:6px;border-radius:99px;background:rgba(255,255,255,0.15);overflow:hidden;}
+  .bar-fill{height:100%;border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1);}
+  .bar-txt{font-size:12px;color:#b0b0cc;margin-top:6px;margin-bottom:10px;}
+  .input-row{display:flex;gap:8px;margin-top:4px;}
+  .num-input{flex:1;background:#2e2e50;border:1px solid rgba(255,255,255,0.25);border-radius:10px;color:#fff;padding:9px 12px;font-size:14px;outline:none;}
+  .num-input::placeholder{color:#8888aa;}
+  .log-btn{border:none;border-radius:10px;color:#fff;font-weight:700;padding:0 16px;font-size:14px;white-space:nowrap;}
+  .date-banner{display:flex;justify-content:space-between;align-items:center;background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.45);border-radius:14px;padding:12px 16px;}
+  .today-badge{color:#fff;font-size:11px;font-weight:700;border-radius:6px;padding:2px 7px;margin-left:6px;}
+  .change-date-btn{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);border-radius:8px;color:#e0e0f8;font-size:12px;padding:5px 12px;white-space:nowrap;}
+  .date-picker{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;background:#252540;border:1px solid rgba(255,255,255,0.18);border-radius:14px;padding:12px;}
+  .dp-item{display:flex;flex-direction:column;align-items:center;padding:6px 2px;border-radius:9px;border:1px solid transparent;font-size:11px;line-height:1.4;}
+  .pill-row{display:flex;gap:6px;flex-wrap:wrap;}
+  .pill{border-radius:20px;padding:4px 12px;font-size:12px;font-weight:600;border:1px solid transparent;transition:all .3s;}
+  .congrats{text-align:center;font-size:13px;color:#FFD700;}
+  .f-row{display:flex;gap:6px;margin-top:4px;}
+  .f-btn{flex:1;display:flex;flex-direction:column;align-items:center;padding:7px 2px;border-radius:12px;border:2px solid transparent;background:rgba(255,255,255,0.08);color:#c8c8e8;transition:all .2s;}
+  .sleep-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px;}
+  .sleep-btn{padding:5px 10px;border-radius:9px;border:2px solid transparent;background:rgba(255,255,255,0.08);color:#c8c8e8;font-size:12px;font-weight:700;transition:all .2s;}
+  .chart-area{display:flex;gap:3px;align-items:flex-end;padding:8px 0 4px;justify-content:space-between;}
+  .chart-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;}
+  .chart-wrap{width:100%;height:88px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;position:relative;}
+  .goal-line{position:absolute;left:0;right:0;border-top:1px dashed rgba(255,255,255,0.4);}
+  .c-bar{width:65%;border-radius:4px 4px 0 0;min-height:2px;transition:height .4s ease;}
+  .c-date-lbl{font-size:10px;text-align:center;color:#b0b0cc;}
+  .c-val-lbl{font-size:9px;font-weight:600;}
+  .week-sum{margin-top:10px;font-size:12px;color:#b0b0cc;border-top:1px solid rgba(255,255,255,0.15);padding-top:9px;}
+  .commit-wrap{background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.3);border-radius:16px;padding:16px;}
+  .commit-btn{width:100%;background:linear-gradient(135deg,#6366F1,#8B5CF6);border:none;border-radius:12px;color:#fff;font-weight:800;padding:14px 0;font-size:16px;box-shadow:0 4px 20px rgba(99,102,241,0.4);}
+  .toast{position:fixed;top:calc(18px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);border:1px solid;color:#fff;border-radius:12px;padding:10px 22px;font-size:14px;font-weight:600;z-index:300;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,0.6);opacity:0;transition:opacity .3s;pointer-events:none;max-width:90vw;overflow:hidden;text-overflow:ellipsis;}
+  .toast.show{opacity:1;}
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:100;}
+  .modal{background:#252540;border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:28px 24px;width:340px;max-width:90vw;display:flex;flex-direction:column;gap:16px;max-height:85vh;overflow-y:auto;}
+  .modal-title{font-size:18px;font-weight:800;color:#fff;}
+  .m-row{display:flex;flex-direction:column;gap:6px;}
+  .m-input{flex:1;background:#2e2e50;border:1px solid rgba(255,255,255,0.25);border-radius:10px;color:#fff;padding:9px 12px;font-size:15px;outline:none;}
+  .save-btn{background:#6366F1;border:none;border-radius:12px;color:#fff;font-weight:700;padding:12px 0;font-size:15px;}
+  .ghost-btn{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:10px;color:#e0e0f8;font-weight:600;padding:10px 0;font-size:14px;}
+  .ai-h2{font-size:14px;font-weight:700;color:#c4b5fd;margin:12px 0 5px;border-bottom:1px solid rgba(196,181,253,0.3);padding-bottom:3px;}
+  textarea{width:100%;background:#2e2e50;border:1px solid rgba(255,255,255,0.25);border-radius:10px;color:#fff;padding:10px;font-size:12px;outline:none;font-family:inherit;resize:vertical;}
+  .hidden{display:none !important;}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="header">
+    <div><div class="h-title">My Habits</div><div class="h-sub">退勤後の習慣トラッカー</div></div>
+    <button class="icon-btn" onclick="openSettings()">⚙️</button>
+  </div>
+  <div class="countdown" id="countdown"></div>
+  <nav>
+    <button class="tab active" data-tab="today" onclick="switchTab('today',this)">今日</button>
+    <button class="tab" data-tab="week" onclick="switchTab('week',this)">今週</button>
+    <button class="tab" data-tab="ai" onclick="switchTab('ai',this)">AI分析</button>
+  </nav>
+  <div id="tab-today" class="cards"></div>
+  <div id="tab-week" class="cards hidden"></div>
+  <div id="tab-ai" class="cards hidden"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<!-- 設定モーダル -->
+<div class="overlay hidden" id="settings-overlay" onclick="if(event.target===this)closeSettings()">
+  <div class="modal">
+    <div class="modal-title">目標を設定</div>
+    <div id="goal-inputs"></div>
+    <button class="save-btn" onclick="saveGoals()">保存</button>
+    <div style="border-top:1px solid rgba(255,255,255,0.15);padding-top:14px;display:flex;flex-direction:column;gap:8px">
+      <div style="font-size:13px;color:#b0b0cc;font-weight:700">データ管理</div>
+      <button class="ghost-btn" onclick="exportData()">📋 バックアップをコピー</button>
+      <button class="ghost-btn" onclick="openImport()">📥 バックアップから復元</button>
+    </div>
+  </div>
+</div>
+
+<!-- インポートモーダル -->
+<div class="overlay hidden" id="import-overlay" onclick="if(event.target===this)closeImport()">
+  <div class="modal">
+    <div class="modal-title">バックアップから復元</div>
+    <div style="font-size:12px;color:#b0b0cc">コピーしたバックアップデータを貼り付けてください</div>
+    <textarea id="import-text" rows="6" placeholder="ここに貼り付け"></textarea>
+    <button class="save-btn" onclick="importData()">復元する</button>
+    <button class="ghost-btn" onclick="closeImport()">キャンセル</button>
+  </div>
+</div>
+
+<script>
+const HABITS=[
+  {id:"english",label:"英語",icon:"📖",unit:"分",defaultGoal:90,step:5,color:"#F59E0B",bg:"rgba(245,158,11,0.15)",event:"📝 TOEIC 7月"},
+  {id:"reading",label:"読書",icon:"📚",unit:"分",defaultGoal:30,step:5,color:"#10B981",bg:"rgba(16,185,129,0.15)",event:null},
+  {id:"math",label:"数学",icon:"📐",unit:"分",defaultGoal:30,step:5,color:"#EC4899",bg:"rgba(236,72,153,0.15)",event:null},
+  {id:"running",label:"ランニング",icon:"🏃",unit:"km",defaultGoal:6,step:0.1,color:"#6366F1",bg:"rgba(99,102,241,0.15)",event:"🏁 函館FM 6/28"},
+];
+const FATIGUE=[
+  {value:1,label:"元気",emoji:"😄",color:"#10B981"},
+  {value:2,label:"普通",emoji:"🙂",color:"#6EE7B7"},
+  {value:3,label:"やや疲れ",emoji:"😐",color:"#F59E0B"},
+  {value:4,label:"疲れた",emoji:"😩",color:"#EF4444"},
+  {value:5,label:"ヘロヘロ",emoji:"😵",color:"#991B1B"},
+];
+const DOW=["日","月","火","水","木","金","土"];
+const SKEY="myhabits-v3";
+const MARATHON_DATE="2026-06-28";
+const TOEIC_DATE="2026-07-05";
+
+const ST={ saved:{}, goals:Object.fromEntries(HABITS.map(h=>[h.id,h.defaultGoal])),
+  draft:{}, tab:"today", selDate:localDateStr(), inputs:Object.fromEntries(HABITS.map(h=>[h.id,""])),
+  dateOpen:false };
+
+// ── 保存・読み込み（localStorage） ──────────────────────────────────────
+function persist(){
+  try{ localStorage.setItem(SKEY,JSON.stringify({saved:ST.saved,goals:ST.goals})); return true; }
+  catch(e){ console.warn(e); return false; }
+}
+function loadData(){
+  try{
+    const raw=localStorage.getItem(SKEY);
+    if(raw){ const d=JSON.parse(raw); if(d.saved)ST.saved=d.saved; if(d.goals)ST.goals=d.goals; }
+  }catch(e){ console.warn(e); }
+}
+
+// ── ヘルパー ─────────────────────────────────────────────────────────────
+function localDateStr(d=new Date()){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function fmtShort(s){const d=new Date(s+"T00:00:00");return (d.getMonth()+1)+"/"+d.getDate();}
+function fmtFull(s){const d=new Date(s+"T00:00:00");return d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日（"+DOW[d.getDay()]+"）";}
+function daysUntil(t){const n=new Date();n.setHours(0,0,0,0);return Math.ceil((new Date(t+"T00:00:00")-n)/86400000);}
+function fmtMin(v){if(v==null)return"未記録";if(v===0)return"休養日";if(v<60)return v+"分";const h=Math.floor(v/60),m=v%60;return m>0?h+"時間"+m+"分":h+"時間";}
+function dispVal(h,v){if(v==null)return"未記録";if(v===0)return"休養日";return h.unit==="分"?fmtMin(v):v+"km";}
+function dispGoal(h,g){return h.unit==="分"?fmtMin(g):g+"km";}
+function weekDays(){const a=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);a.push(localDateStr(d));}return a;}
+function selectableDates(){const a=[];for(let i=0;i<14;i++){const d=new Date();d.setDate(d.getDate()-i);a.push(localDateStr(d));}return a;}
+
+// ── Toast ────────────────────────────────────────────────────────────────
+let toastTimer=null;
+function showToast(msg,type){
+  type=type||"ok";
+  const el=document.getElementById("toast");
+  el.textContent=msg;
+  el.style.background=type==="error"?"#3d1a1a":type==="info"?"#1a2a3d":"#1a2d1a";
+  el.style.borderColor=type==="error"?"#ef444466":type==="info"?"#6366F166":"#10b98166";
+  el.classList.add("show");
+  if(toastTimer)clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove("show"),2800);
+}
+
+// ── 下書き操作 ──────────────────────────────────────────────────────────
+function stageDraft(id){
+  const h=HABITS.find(x=>x.id===id);
+  const raw=ST.inputs[id];
+  if(raw===""){showToast("値を入力してください","error");return;}
+  const n=h.unit==="分"?parseInt(raw,10):parseFloat(raw);
+  if(isNaN(n)||n<0){showToast("0以上の数値を入力してください","error");return;}
+  if(!ST.draft[ST.selDate])ST.draft[ST.selDate]={};
+  ST.draft[ST.selDate][id]=n;
+  ST.inputs[id]="";
+  showToast(n===0?h.label+"：休養日として入力しました 💤":h.label+"："+dispVal(h,n)+" を入力しました ✏️","info");
+  renderToday();
+}
+function removeItem(id){
+  if(ST.draft[ST.selDate])delete ST.draft[ST.selDate][id];
+  if(ST.saved[ST.selDate]&&ST.saved[ST.selDate][id]!=null){ delete ST.saved[ST.selDate][id]; persist(); }
+  renderToday();
+}
+function stageFatigue(v){if(!ST.draft[ST.selDate])ST.draft[ST.selDate]={};ST.draft[ST.selDate].fatigue=v;renderToday();}
+function stageSleep(v){if(!ST.draft[ST.selDate])ST.draft[ST.selDate]={};ST.draft[ST.selDate].sleep=v;renderToday();}
+
+// ── 確定 ─────────────────────────────────────────────────────────────────
+function commitDay(){
+  const dd=ST.draft[ST.selDate]||{};
+  if(!ST.saved[ST.selDate])ST.saved[ST.selDate]={};
+  Object.assign(ST.saved[ST.selDate],dd);
+  const ok=persist();
+  if(ok){
+    delete ST.draft[ST.selDate];
+    showToast("✅ 記録を確定しました！","ok");
+    renderToday();
+  }else{
+    showToast("⚠️ 保存に失敗しました","error");
+  }
+}
+
+// ── タブ ─────────────────────────────────────────────────────────────────
+function switchTab(t,btn){
+  document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  ["today","week","ai"].forEach(x=>document.getElementById("tab-"+x).classList.toggle("hidden",x!==t));
+  ST.tab=t;
+  if(t==="today")renderToday();else if(t==="week")renderWeek();else renderAI();
+}
+
+// ── カウントダウン ───────────────────────────────────────────────────────
+function renderCountdown(){
+  const md=daysUntil(MARATHON_DATE),td=daysUntil(TOEIC_DATE);
+  const mc=md<=7?"#EF4444":md<=14?"#F59E0B":"#6366F1";
+  document.getElementById("countdown").innerHTML=
+    '<div class="cd-item"><span style="font-size:16px">🏁</span><div><div style="font-size:11px;color:#b0b0cc">函館フルマラソン</div><div style="font-size:15px;font-weight:800;color:'+mc+'">あと'+md+'日</div></div></div>'+
+    '<div style="width:1px;background:rgba(255,255,255,0.15);align-self:stretch"></div>'+
+    '<div class="cd-item"><span style="font-size:16px">📝</span><div><div style="font-size:11px;color:#b0b0cc">TOEIC</div><div style="font-size:15px;font-weight:800;color:#F59E0B">あと'+td+'日</div></div></div>';
+}
+
+// ── 今日タブ ─────────────────────────────────────────────────────────────
+function renderToday(){
+  const root=document.getElementById("tab-today");
+  const todayStr=localDateStr(),sel=ST.selDate;
+  const ss=ST.saved[sel]||{}, sd=ST.draft[sel]||{};
+  const rec=Object.assign({},ss,sd);
+  const isCommitted=HABITS.every(h=>ss[h.id]!=null);
+  const hasDraft=Object.keys(sd).length>0;
+  const done=HABITS.map(h=>(ss[h.id]>0)&&ss[h.id]>=ST.goals[h.id]);
+  let h="";
+
+  // 日付バナー
+  h+='<div class="date-banner"><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span style="font-size:18px">📅</span><span style="font-weight:700;font-size:15px;color:#fff">'+fmtFull(sel)+'</span>'+
+    (sel===todayStr?'<span class="today-badge" style="background:#6366F1">今日</span>':'')+
+    (isCommitted?'<span class="today-badge" style="background:#10B981">確定済み ✓</span>':'')+
+    '</div><button class="change-date-btn" onclick="toggleDate()">'+(ST.dateOpen?"閉じる":"日付変更")+'</button></div>';
+
+  // 日付ピッカー
+  if(ST.dateOpen){
+    h+='<div class="date-picker">';
+    selectableDates().forEach(d=>{
+      const dt=new Date(d+"T00:00:00"),isSel=d===sel,isTd=d===todayStr;
+      const isCmt=HABITS.every(x=>(ST.saved[d]||{})[x.id]!=null);
+      h+='<button class="dp-item" onclick="pickDate(\''+d+'\')" style="background:'+(isSel?"#6366F1":"rgba(255,255,255,0.08)")+';color:'+(isSel?"#fff":isTd?"#a78bfa":"#c8c8e8")+';border-color:'+(isSel?"#6366F1":isCmt?"#10B981":isTd?"#6366F1":"transparent")+';font-weight:'+(isSel||isTd?700:400)+'"><span>'+(dt.getMonth()+1)+'/'+dt.getDate()+'</span><span style="font-size:10px;opacity:.8">'+DOW[dt.getDay()]+'</span>'+(isCmt&&!isSel?'<span style="font-size:8px;color:#10B981">✓</span>':isTd&&!isSel?'<span style="font-size:8px;color:#a78bfa">今日</span>':'')+'</button>';
+    });
+    h+='</div>';
+  }
+
+  // ピル
+  h+='<div class="pill-row">';
+  HABITS.forEach((hb,i)=>{
+    const inDraft=sd[hb.id]!=null,inSaved=ss[hb.id]!=null;
+    h+='<div class="pill" style="background:'+(done[i]?hb.color:inSaved?"rgba(255,255,255,0.18)":inDraft?"rgba(255,255,255,0.12)":"rgba(255,255,255,0.07)")+';color:'+(done[i]?"#fff":inDraft?"#e8e8f0":"#888")+';border:'+(inDraft&&!inSaved?"1px dashed rgba(255,255,255,0.3)":"1px solid transparent")+'">'+hb.icon+' '+hb.label+(done[i]?" ✓":inDraft?" ✏️":"")+'</div>';
+  });
+  h+='</div>';
+  if(done.every(Boolean))h+='<div class="congrats">🎉 全'+HABITS.length+'つ達成！完璧なバランスです！</div>';
+
+  // 習慣カード
+  HABITS.forEach(hb=>{
+    const sv=ss[hb.id]!=null?ss[hb.id]:null, dv=sd[hb.id]!=null?sd[hb.id]:null;
+    const show=dv!=null?dv:sv, confirmed=sv!=null, hd=dv!=null;
+    const pct=show!=null&&show>0?Math.min(100,Math.round(show/ST.goals[hb.id]*100)):0;
+    const isDone=sv!=null&&sv>0&&sv>=ST.goals[hb.id];
+    h+='<div class="card" style="background:'+(isDone?hb.bg:"#252540")+';border-color:'+(isDone?hb.color+"66":hd&&!confirmed?"rgba(255,255,255,0.35)":"rgba(255,255,255,0.18)")+'">';
+    h+='<div class="card-top"><span class="c-icon">'+hb.icon+'</span><div style="flex:1"><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span class="c-label" style="color:'+hb.color+'">'+hb.label+'</span>';
+    if(hb.event)h+='<span class="tag" style="color:'+hb.color+';background:'+hb.color+'22">'+hb.event+'</span>';
+    if(hd&&!confirmed)h+='<span class="tag" style="color:#fbbf24;background:rgba(251,191,36,0.15)">✏️ 未確定</span>';
+    if(confirmed)h+='<span class="tag" style="color:#10B981;background:rgba(16,185,129,0.15)">✓ 確定済み</span>';
+    h+='</div><div class="c-goal">目標 '+dispGoal(hb,ST.goals[hb.id])+'/日</div></div>';
+    if(isDone)h+='<span class="done-badge" style="color:'+hb.color+'">✓ 達成</span>';
+    if(hd||confirmed)h+='<button class="rm-btn" onclick="removeItem(\''+hb.id+'\')">✕</button>';
+    h+='</div>';
+    if(show!=null&&show>0){
+      h+='<div class="bar-bg"><div class="bar-fill" style="width:'+pct+'%;background:'+hb.color+';opacity:'+(confirmed?1:0.5)+'"></div></div>';
+      h+='<div class="bar-txt">'+dispVal(hb,show)+' / '+dispGoal(hb,ST.goals[hb.id])+' ('+pct+'%)'+(!confirmed?'<span style="color:#fbbf24"> ※未確定</span>':'')+'</div>';
+    }else if(show!=null&&show===0){
+      h+='<div style="font-size:12px;color:#818CF8;margin:4px 0 10px">💤 休養日として入力済み'+(!confirmed?'<span style="color:#fbbf24"> ※未確定</span>':'')+'</div>';
+    }else{
+      h+='<div style="font-size:12px;color:#b0b0cc;margin:4px 0 10px">未入力</div>';
+    }
+    if(!confirmed){
+      h+='<div class="input-row"><input class="num-input" type="number" step="'+hb.step+'" inputmode="decimal" placeholder="'+(hb.unit==="分"?"分（0=休養日）":"km（0=休養日）")+'" value="'+ST.inputs[hb.id]+'" oninput="ST.inputs[\''+hb.id+'\']=this.value" onkeydown="if(event.key===\'Enter\')stageDraft(\''+hb.id+'\')"><button class="log-btn" style="background:'+hb.color+'" onclick="stageDraft(\''+hb.id+'\')">'+(hd?"更新":"入力")+'</button></div>';
+    }
+    h+='</div>';
+  });
+
+  // 疲労度
+  h+='<div class="card"><div class="card-top"><span class="c-icon">💪</span><div style="flex:1"><div class="c-label" style="color:#EC4899">疲労度</div><div class="c-goal">この日の身体の状態</div></div>';
+  if(rec.fatigue&&!ss.fatigue)h+='<span class="tag" style="color:#fbbf24;background:rgba(251,191,36,0.15)">✏️ 未確定</span>';
+  if(ss.fatigue)h+='<span class="tag" style="color:#10B981;background:rgba(16,185,129,0.15)">✓ 確定済み</span>';
+  h+='</div><div class="f-row">';
+  FATIGUE.forEach(fl=>{const a=rec.fatigue===fl.value;h+='<button class="f-btn" onclick="stageFatigue('+fl.value+')" style="background:'+(a?fl.color:"rgba(255,255,255,0.08)")+';border-color:'+(a?fl.color:"transparent")+';color:'+(a?"#fff":"#c8c8e8")+'"><span style="font-size:20px">'+fl.emoji+'</span><span style="font-size:10px;margin-top:2px">'+fl.label+'</span></button>';});
+  h+='</div></div>';
+
+  // 睡眠
+  h+='<div class="card"><div class="card-top"><span class="c-icon">🌙</span><div style="flex:1"><div class="c-label" style="color:#818CF8">睡眠時間</div><div class="c-goal">前夜の睡眠（時間）</div></div>';
+  if(rec.sleep!=null)h+='<span style="font-size:17px;font-weight:700;color:#818CF8">'+rec.sleep+'h</span>';
+  if(rec.sleep!=null&&!ss.sleep)h+='<span class="tag" style="color:#fbbf24;background:rgba(251,191,36,0.15);margin-left:4px">✏️</span>';
+  h+='</div><div class="sleep-row">';
+  [4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,10].forEach(v=>{const a=rec.sleep===v;h+='<button class="sleep-btn" onclick="stageSleep('+v+')" style="background:'+(a?"#818CF8":"rgba(255,255,255,0.08)")+';border-color:'+(a?"#818CF8":"transparent")+';color:'+(a?"#fff":"#c8c8e8")+'">'+v+'h</button>';});
+  h+='</div></div>';
+
+  // 確定ボタン
+  if(hasDraft){
+    const notSet=HABITS.filter(hb=>sd[hb.id]==null&&ss[hb.id]==null).map(hb=>hb.label);
+    h+='<div class="commit-wrap"><div style="font-size:12px;color:#b0b0cc;margin-bottom:10px;text-align:center">'+(notSet.length?notSet.join("・")+" がまだ未入力です":"全項目入力済みです")+'</div><button class="commit-btn" onclick="commitDay()">✅ この日の記録を確定する</button></div>';
+  }else if(isCommitted){
+    h+='<div style="text-align:center;font-size:13px;color:#10B981;padding:8px 0">✅ この日の記録は確定済みです</div>';
+  }
+
+  root.innerHTML=h;
+}
+function toggleDate(){ST.dateOpen=!ST.dateOpen;renderToday();}
+function pickDate(d){ST.selDate=d;ST.dateOpen=false;renderToday();}
+
+// ── 今週タブ ─────────────────────────────────────────────────────────────
+function renderWeek(){
+  const root=document.getElementById("tab-week"),days=weekDays(),todayStr=localDateStr();
+  let h="";
+  HABITS.forEach(hb=>{
+    const prog=days.map(d=>({date:d,value:(ST.saved[d]||{})[hb.id]!=null?(ST.saved[d]||{})[hb.id]:null}));
+    const maxV=Math.max.apply(null,prog.map(p=>p.value||0).concat([ST.goals[hb.id],0.1]));
+    const achDays=prog.filter(p=>p.value!=null&&p.value>=ST.goals[hb.id]).length;
+    const total=prog.reduce((a,p)=>a+(p.value||0),0);
+    const dtStr=hb.unit==="分"?fmtMin(total):(Math.round(total*10)/10)+"km";
+    h+='<div class="card"><div class="card-top"><span class="c-icon">'+hb.icon+'</span><div><div class="c-label" style="color:'+hb.color+'">'+hb.label+'</div><div class="c-goal">今週達成率 '+Math.round(achDays/7*100)+'%</div></div></div><div class="chart-area">';
+    prog.forEach(p=>{
+      const isTd=p.date===todayStr,v=p.value||0;
+      const bH=Math.round(v/maxV*78),gH=Math.round(ST.goals[hb.id]/maxV*78);
+      const ach=p.value!=null&&p.value>=ST.goals[hb.id],isRest=p.value===0,notRec=p.value==null;
+      const dv=hb.unit==="分"?(v>=60?Math.floor(v/60)+"h"+(v%60?v%60+"m":""):v+"m"):v;
+      h+='<div class="chart-col"><div class="chart-wrap"><div class="goal-line" style="bottom:'+gH+'px"></div><div class="c-bar" style="height:'+Math.max(bH,v>0?3:0)+'px;background:'+(ach?hb.color:isTd?hb.color+"66":isRest?"rgba(129,140,248,0.3)":"rgba(255,255,255,0.15)")+'"></div></div><div class="c-date-lbl" style="color:'+(isTd?hb.color:"#b0b0cc")+';font-weight:'+(isTd?700:400)+'">'+fmtShort(p.date)+'</div>'+(!notRec?'<div class="c-val-lbl" style="color:'+(ach?hb.color:isRest?"#818CF8":"#b0b0cc")+'">'+(isRest?"休養":dv)+'</div>':'')+'</div>';
+    });
+    h+='</div><div class="week-sum">合計 '+dtStr+' ／ 達成日 '+achDays+'日</div></div>';
+  });
+  // 疲労・睡眠
+  h+='<div class="card"><div class="card-top"><span class="c-icon">📊</span><div class="c-label" style="color:#A78BFA">疲労・睡眠の推移</div></div><div class="chart-area">';
+  days.forEach(d=>{const isTd=d===todayStr,fat=(ST.saved[d]||{}).fatigue||0,slp=(ST.saved[d]||{}).sleep||0,fl=FATIGUE.find(f=>f.value===fat);h+='<div class="chart-col"><div style="font-size:17px;line-height:1;margin-bottom:3px">'+(fl?fl.emoji:"—")+'</div><div style="font-size:10px;font-weight:600;color:#818CF8">'+(slp?slp+"h":"—")+'</div><div class="c-date-lbl" style="color:'+(isTd?"#A78BFA":"#b0b0cc")+';font-weight:'+(isTd?700:400)+'">'+fmtShort(d)+'</div></div>';});
+  h+='</div></div>';
+  root.innerHTML=h;
+}
+
+// ── AI分析タブ（プロンプト生成方式） ───────────────────────────────────
+function renderAI(){
+  const root=document.getElementById("tab-ai"),days=weekDays();
+  const filled=days.filter(d=>{const r=ST.saved[d]||{};return r.english!=null||r.reading!=null||r.math!=null||r.running!=null||r.fatigue!=null||r.sleep!=null;}).length;
+  const pct=Math.round(filled/7*100);
+  const cc=filled===0?"#6b7280":filled<3?"#F59E0B":filled<7?"#6366F1":"#10B981";
+  const msg=filled===0?"まだ確定済みの記録がありません":filled<3?"確定済み"+filled+"日分。少ないですが分析できます。":filled<7?"確定済み"+filled+"日分。データが増えるほど精度が上がります。":"7日分揃っています！🎉";
+  let h='<div class="card" style="border-color:'+cc+'66"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span style="font-size:13px;color:#b0b0cc">📊 データカバレッジ（確定済み）</span><span style="font-size:13px;font-weight:700;color:'+cc+'">'+filled+' / 7日</span></div><div class="bar-bg"><div class="bar-fill" style="width:'+pct+'%;background:'+cc+'"></div></div><div style="font-size:12px;color:#b0b0cc;margin-top:7px">'+msg+'</div></div>';
+  h+='<div class="card"><div style="font-size:17px;font-weight:800;color:#fff;margin-bottom:8px">🤖 AIコーチ分析</div>';
+  h+='<div style="font-size:13px;color:#c8c8e8;line-height:1.7;margin-bottom:14px">Safari単体ではAIに直接接続できないため、下のボタンで<strong style="color:#fff">分析用プロンプトをコピー</strong>し、Claudeアプリに貼り付けて分析してもらう方式です。</div>';
+  h+='<button class="save-btn" onclick="copyAIPrompt()" style="width:100%">📋 分析プロンプトをコピー</button></div>';
+  root.innerHTML=h;
+}
+function buildAIPrompt(){
+  const days=weekDays();
+  const summary=days.map(d=>{const r=ST.saved[d]||{};return{date:fmtShort(d),英語分:r.english??null,読書分:r.reading??null,数学分:r.math??null,ランニングkm:r.running??null,疲労度:r.fatigue??null,睡眠h:r.sleep??null};});
+  const md=daysUntil(MARATHON_DATE),td=daysUntil(TOEIC_DATE);
+  return "あなたは健康・習慣コーチのAIです。以下のデータを分析し具体的なアドバイスを日本語でお願いします。\n\n【重要イベント】\n- 函館フルマラソン: "+MARATHON_DATE+"（あと"+md+"日）\n- TOEIC: "+TOEIC_DATE+"頃（あと"+td+"日）\n\n【1日の目標】英語"+ST.goals.english+"分 / 読書"+ST.goals.reading+"分 / 数学"+ST.goals.math+"分 / ランニング"+ST.goals.running+"km\n\n【過去7日の記録】※値0=休養日\n"+JSON.stringify(summary,null,2)+"\n\n【疲労度】1=元気〜5=ヘロヘロ\n\n以下を分析してください:\n1. 現状サマリー\n2. 疲労・睡眠と学習・運動のバランス\n3. マラソン/TOEICに向けた目標値の最適化提案（テーパリング含む）\n4. 明日・来週の優先行動3つ";
+}
+function copyAIPrompt(){
+  const txt=buildAIPrompt();
+  copyToClipboard(txt,"分析プロンプトをコピーしました！Claudeアプリに貼り付けてください");
+}
+
+// ── データ管理 ──────────────────────────────────────────────────────────
+function exportData(){
+  const txt=JSON.stringify({saved:ST.saved,goals:ST.goals});
+  copyToClipboard(txt,"バックアップをコピーしました！安全な場所に保管してください");
+}
+function openImport(){document.getElementById("import-overlay").classList.remove("hidden");}
+function closeImport(){document.getElementById("import-overlay").classList.add("hidden");}
+function importData(){
+  const txt=document.getElementById("import-text").value.trim();
+  if(!txt){showToast("データを貼り付けてください","error");return;}
+  try{
+    const d=JSON.parse(txt);
+    if(d.saved)ST.saved=d.saved;
+    if(d.goals)ST.goals=d.goals;
+    persist();
+    closeImport();
+    showToast("✅ バックアップから復元しました","ok");
+    renderToday();renderCountdown();
+  }catch(e){showToast("データの形式が正しくありません","error");}
+}
+function copyToClipboard(txt,okMsg){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(()=>showToast(okMsg,"ok")).catch(()=>fallbackCopy(txt,okMsg));
+  }else fallbackCopy(txt,okMsg);
+}
+function fallbackCopy(txt,okMsg){
+  const ta=document.createElement("textarea");ta.value=txt;ta.style.position="fixed";ta.style.opacity="0";
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand("copy");showToast(okMsg,"ok");}catch(e){showToast("コピーに失敗しました","error");}
+  document.body.removeChild(ta);
+}
+
+// ── 設定 ─────────────────────────────────────────────────────────────────
+function openSettings(){
+  let h="";
+  HABITS.forEach(hb=>{h+='<div class="m-row"><label style="font-weight:700;color:'+hb.color+';font-size:14px">'+hb.icon+' '+hb.label+'</label><div style="display:flex;align-items:center;gap:8px"><input class="m-input" id="goal-'+hb.id+'" type="number" step="'+hb.step+'" inputmode="decimal" value="'+ST.goals[hb.id]+'"><span style="color:#b0b0cc;font-size:13px">'+hb.unit+'/日</span></div></div>';});
+  document.getElementById("goal-inputs").innerHTML=h;
+  document.getElementById("settings-overlay").classList.remove("hidden");
+}
+function closeSettings(){document.getElementById("settings-overlay").classList.add("hidden");}
+function saveGoals(){
+  HABITS.forEach(hb=>{const el=document.getElementById("goal-"+hb.id);if(el){const v=hb.unit==="分"?parseInt(el.value):parseFloat(el.value);if(!isNaN(v)&&v>0)ST.goals[hb.id]=v;}});
+  persist();closeSettings();showToast("目標を保存しました ✓","ok");
+  renderToday();
+}
+
+// ── 初期化 ───────────────────────────────────────────────────────────────
+loadData();
+renderCountdown();
+renderToday();
+</script>
+</body>
+</html>
