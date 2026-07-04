@@ -14,14 +14,15 @@
   button{font-family:inherit;cursor:pointer;color:inherit;}
   input{font-family:inherit;}
   #app{max-width:480px;margin:0 auto;padding-bottom:calc(40px + env(safe-area-inset-bottom));}
-  .header{display:flex;justify-content:space-between;align-items:center;padding:calc(24px + env(safe-area-inset-top)) 20px 10px;}
+  .header{display:flex;justify-content:space-between;align-items:center;padding:calc(24px + env(safe-area-inset-top)) 20px 6px;}
   .h-title{font-size:26px;font-weight:800;letter-spacing:1px;color:#fff;}
   .h-sub{font-size:12px;color:#b0b0cc;margin-top:2px;}
   .icon-btn{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:10px;padding:8px 12px;font-size:18px;}
+  .lvstrip{display:flex;align-items:center;gap:10px;margin:4px 16px 4px;background:linear-gradient(135deg,rgba(99,102,241,0.25),rgba(139,92,246,0.2));border:1px solid rgba(139,92,246,0.4);border-radius:12px;padding:8px 14px;font-size:12px;flex-wrap:wrap;}
   .countdown{display:flex;align-items:center;margin:0 16px 4px;background:#252540;border:1px solid rgba(255,255,255,0.15);border-radius:14px;padding:10px 16px;gap:12px;}
   .cd-item{display:flex;align-items:center;gap:8px;flex:1;}
-  nav{display:flex;padding:8px 20px 4px;border-bottom:1px solid rgba(255,255,255,0.15);}
-  .tab{background:transparent;border:none;color:#9090b8;font-size:15px;font-weight:600;padding:8px 18px;border-bottom:2px solid transparent;transition:all .2s;}
+  nav{display:flex;padding:8px 12px 4px;border-bottom:1px solid rgba(255,255,255,0.15);}
+  .tab{background:transparent;border:none;color:#9090b8;font-size:14px;font-weight:600;padding:8px 12px;border-bottom:2px solid transparent;transition:all .2s;}
   .tab.active{color:#fff;border-bottom:2px solid #6366F1;}
   .cards{padding:12px 16px;display:flex;flex-direction:column;gap:12px;}
   .card{border-radius:18px;border:1px solid rgba(255,255,255,0.18);padding:16px 16px 14px;background:#252540;transition:all .3s;}
@@ -61,7 +62,7 @@
   .week-sum{margin-top:10px;font-size:12px;color:#b0b0cc;border-top:1px solid rgba(255,255,255,0.15);padding-top:9px;}
   .commit-wrap{background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.3);border-radius:16px;padding:16px;}
   .commit-btn{width:100%;background:linear-gradient(135deg,#6366F1,#8B5CF6);border:none;border-radius:12px;color:#fff;font-weight:800;padding:14px 0;font-size:16px;box-shadow:0 4px 20px rgba(99,102,241,0.4);}
-  .toast{position:fixed;top:calc(18px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);border:1px solid;color:#fff;border-radius:12px;padding:10px 22px;font-size:14px;font-weight:600;z-index:300;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,0.6);opacity:0;transition:opacity .3s;pointer-events:none;max-width:90vw;overflow:hidden;text-overflow:ellipsis;}
+  .toast{position:fixed;top:calc(18px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);border:1px solid;color:#fff;border-radius:12px;padding:10px 22px;font-size:14px;font-weight:600;z-index:300;white-space:pre-line;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.6);opacity:0;transition:opacity .3s;pointer-events:none;max-width:90vw;}
   .toast.show{opacity:1;}
   .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:100;}
   .modal{background:#252540;border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:28px 24px;width:340px;max-width:90vw;display:flex;flex-direction:column;gap:16px;max-height:85vh;overflow-y:auto;}
@@ -70,9 +71,25 @@
   .m-input{flex:1;background:#2e2e50;border:1px solid rgba(255,255,255,0.25);border-radius:10px;color:#fff;padding:9px 12px;font-size:15px;outline:none;}
   .save-btn{background:#6366F1;border:none;border-radius:12px;color:#fff;font-weight:700;padding:12px 0;font-size:15px;}
   .ghost-btn{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:10px;color:#e0e0f8;font-weight:600;padding:10px 0;font-size:14px;}
-  .ai-h2{font-size:14px;font-weight:700;color:#c4b5fd;margin:12px 0 5px;border-bottom:1px solid rgba(196,181,253,0.3);padding-bottom:3px;}
   textarea{width:100%;background:#2e2e50;border:1px solid rgba(255,255,255,0.25);border-radius:10px;color:#fff;padding:10px;font-size:12px;outline:none;font-family:inherit;resize:vertical;}
+  /* game */
+  .lv-card{border-radius:18px;border:1px solid rgba(139,92,246,0.5);padding:20px;background:linear-gradient(135deg,rgba(99,102,241,0.2),rgba(139,92,246,0.12));text-align:center;}
+  .lv-num{font-size:40px;font-weight:900;color:#fff;line-height:1.1;}
+  .lv-title{font-size:15px;font-weight:700;color:#c4b5fd;margin-top:2px;}
+  .stat-row{display:flex;gap:8px;}
+  .stat-box{flex:1;background:#252540;border:1px solid rgba(255,255,255,0.18);border-radius:14px;padding:12px 8px;text-align:center;}
+  .stat-val{font-size:20px;font-weight:800;color:#fff;}
+  .stat-lbl{font-size:10px;color:#b0b0cc;margin-top:2px;}
+  .badge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+  .badge{border-radius:14px;border:1px solid;padding:12px 6px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;}
+  .badge-emoji{font-size:24px;}
+  .badge-name{font-size:10px;font-weight:700;line-height:1.3;}
+  .badge-desc{font-size:9px;color:#8888aa;line-height:1.3;}
+  .reward-row{display:flex;align-items:center;gap:10px;background:#2e2e50;border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:10px 12px;}
+  .claim-btn{background:linear-gradient(135deg,#F59E0B,#EF4444);border:none;border-radius:9px;color:#fff;font-weight:800;padding:7px 12px;font-size:12px;white-space:nowrap;}
   .hidden{display:none !important;}
+  @keyframes pop{0%{transform:translateX(-50%) scale(0.8);}50%{transform:translateX(-50%) scale(1.08);}100%{transform:translateX(-50%) scale(1);}}
+  .toast.pop{animation:pop .4s ease;}
 </style>
 </head>
 <body>
@@ -81,19 +98,21 @@
     <div><div class="h-title">My Habits</div><div class="h-sub">退勤後の習慣トラッカー</div></div>
     <button class="icon-btn" onclick="openSettings()">⚙️</button>
   </div>
+  <div class="lvstrip" id="lvstrip"></div>
   <div class="countdown" id="countdown"></div>
   <nav>
-    <button class="tab active" data-tab="today" onclick="switchTab('today',this)">今日</button>
-    <button class="tab" data-tab="week" onclick="switchTab('week',this)">今週</button>
-    <button class="tab" data-tab="ai" onclick="switchTab('ai',this)">AI分析</button>
+    <button class="tab active" onclick="switchTab('today',this)">今日</button>
+    <button class="tab" onclick="switchTab('week',this)">今週</button>
+    <button class="tab" onclick="switchTab('game',this)">実績</button>
+    <button class="tab" onclick="switchTab('ai',this)">AI分析</button>
   </nav>
   <div id="tab-today" class="cards"></div>
   <div id="tab-week" class="cards hidden"></div>
+  <div id="tab-game" class="cards hidden"></div>
   <div id="tab-ai" class="cards hidden"></div>
 </div>
 <div class="toast" id="toast"></div>
 
-<!-- 設定モーダル -->
 <div class="overlay hidden" id="settings-overlay" onclick="if(event.target===this)closeSettings()">
   <div class="modal">
     <div class="modal-title">目標を設定</div>
@@ -107,7 +126,6 @@
   </div>
 </div>
 
-<!-- インポートモーダル -->
 <div class="overlay hidden" id="import-overlay" onclick="if(event.target===this)closeImport()">
   <div class="modal">
     <div class="modal-title">バックアップから復元</div>
@@ -120,10 +138,10 @@
 
 <script>
 const HABITS=[
-  {id:"english",label:"英語",icon:"📖",unit:"分",defaultGoal:90,step:5,color:"#F59E0B",bg:"rgba(245,158,11,0.15)",event:"📝 TOEIC 7月"},
+  {id:"english",label:"英語",icon:"📖",unit:"分",defaultGoal:45,step:5,color:"#F59E0B",bg:"rgba(245,158,11,0.15)",event:"📝 TOEIC 7/5"},
   {id:"reading",label:"読書",icon:"📚",unit:"分",defaultGoal:30,step:5,color:"#10B981",bg:"rgba(16,185,129,0.15)",event:null},
-  {id:"math",label:"数学",icon:"📐",unit:"分",defaultGoal:30,step:5,color:"#EC4899",bg:"rgba(236,72,153,0.15)",event:null},
-  {id:"running",label:"ランニング",icon:"🏃",unit:"km",defaultGoal:6,step:0.1,color:"#6366F1",bg:"rgba(99,102,241,0.15)",event:"🏁 函館FM 6/28"},
+  {id:"math",label:"数学",icon:"📐",unit:"分",defaultGoal:15,step:5,color:"#EC4899",bg:"rgba(236,72,153,0.15)",event:null},
+  {id:"running",label:"ランニング",icon:"🏃",unit:"km",defaultGoal:5,step:0.1,color:"#6366F1",bg:"rgba(99,102,241,0.15)",event:"🏁 湘南国際 12/6"},
 ];
 const FATIGUE=[
   {value:1,label:"元気",emoji:"😄",color:"#10B981"},
@@ -134,22 +152,44 @@ const FATIGUE=[
 ];
 const DOW=["日","月","火","水","木","金","土"];
 const SKEY="myhabits-v3";
-const MARATHON_DATE="2026-06-28";
-const TOEIC_DATE="2026-07-05";
+const EVENTS=[
+  {emoji:"📝",name:"TOEIC",date:"2026-07-05"},
+  {emoji:"🏁",name:"湘南国際マラソン",date:"2026-12-06"},
+];
+const LEVEL_TITLES=["かけだし","ビギナー","チャレンジャー","ハビットランナー","習慣の職人","鉄人見習い","アイアンウィル","習慣マスター","レジェンド","殿堂入り"];
+const BADGES=[
+  {id:"first",emoji:"🌱",name:"はじめの一歩",desc:"初めて1日を確定",check:g=>g.completeDays>=1},
+  {id:"streak3",emoji:"🔥",name:"3日坊主克服",desc:"3日連続で確定",check:g=>g.best>=3},
+  {id:"streak7",emoji:"⚡",name:"1週間の壁",desc:"7日連続で確定",check:g=>g.best>=7},
+  {id:"streak14",emoji:"💪",name:"習慣の力",desc:"14日連続で確定",check:g=>g.best>=14},
+  {id:"streak30",emoji:"👑",name:"鉄の意志",desc:"30日連続で確定",check:g=>g.best>=30},
+  {id:"perfect1",emoji:"⭐",name:"パーフェクトデー",desc:"全4項目を達成",check:g=>g.allDoneCount>=1},
+  {id:"perfect5",emoji:"🌟",name:"パーフェクト×5",desc:"全達成を5回",check:g=>g.allDoneCount>=5},
+  {id:"perfect20",emoji:"💫",name:"パーフェクト×20",desc:"全達成を20回",check:g=>g.allDoneCount>=20},
+  {id:"run50",emoji:"🏃",name:"ラン50km",desc:"累計50km走破",check:g=>g.totals.running>=50},
+  {id:"run100",emoji:"🚀",name:"ラン100km",desc:"累計100km走破",check:g=>g.totals.running>=100},
+  {id:"run250",emoji:"🌏",name:"ラン250km",desc:"累計250km走破",check:g=>g.totals.running>=250},
+  {id:"eng10",emoji:"📖",name:"英語10時間",desc:"累計10時間学習",check:g=>g.totals.english>=600},
+  {id:"eng25",emoji:"🎓",name:"英語25時間",desc:"累計25時間学習",check:g=>g.totals.english>=1500},
+  {id:"read10",emoji:"📚",name:"読書10時間",desc:"累計10時間読書",check:g=>g.totals.reading>=600},
+  {id:"rest5",emoji:"💤",name:"休むのも実力",desc:"休養日を5回記録",check:g=>g.restCount>=5},
+];
 
 const ST={ saved:{}, goals:Object.fromEntries(HABITS.map(h=>[h.id,h.defaultGoal])),
-  draft:{}, tab:"today", selDate:localDateStr(), inputs:Object.fromEntries(HABITS.map(h=>[h.id,""])),
-  dateOpen:false };
+  rewards:[], draft:{}, tab:"today", selDate:localDateStr(),
+  inputs:Object.fromEntries(HABITS.map(h=>[h.id,""])), dateOpen:false,
+  rwTitle:"", rwXp:"" };
 
-// ── 保存・読み込み（localStorage） ──────────────────────────────────────
+// ── 保存・読み込み ──────────────────────────────────────────────────────
 function persist(){
-  try{ localStorage.setItem(SKEY,JSON.stringify({saved:ST.saved,goals:ST.goals})); return true; }
+  try{ localStorage.setItem(SKEY,JSON.stringify({saved:ST.saved,goals:ST.goals,rewards:ST.rewards})); return true; }
   catch(e){ console.warn(e); return false; }
 }
 function loadData(){
   try{
     const raw=localStorage.getItem(SKEY);
-    if(raw){ const d=JSON.parse(raw); if(d.saved)ST.saved=d.saved; if(d.goals)ST.goals=d.goals; }
+    if(raw){ const d=JSON.parse(raw);
+      if(d.saved)ST.saved=d.saved; if(d.goals)ST.goals=d.goals; if(d.rewards)ST.rewards=d.rewards; }
   }catch(e){ console.warn(e); }
 }
 
@@ -164,17 +204,66 @@ function dispGoal(h,g){return h.unit==="分"?fmtMin(g):g+"km";}
 function weekDays(){const a=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);a.push(localDateStr(d));}return a;}
 function selectableDates(){const a=[];for(let i=0;i<14;i++){const d=new Date();d.setDate(d.getDate()-i);a.push(localDateStr(d));}return a;}
 
+// ── ゲームロジック ────────────────────────────────────────────────────────
+function calcGame(){
+  const dates=Object.keys(ST.saved).sort();
+  let xp=0,allDoneCount=0,restCount=0;
+  const totals={english:0,reading:0,math:0,running:0};
+  const completeDates=[];
+  dates.forEach(d=>{
+    const r=ST.saved[d]; let dayAch=0;
+    const dayComplete=HABITS.every(h=>r[h.id]!=null);
+    HABITS.forEach(h=>{
+      const v=r[h.id];
+      if(v!=null){
+        totals[h.id]+=v;
+        if(v===0){xp+=3;restCount++;}
+        else if(v>=ST.goals[h.id]){xp+=10;dayAch++;}
+        else xp+=5;
+      }
+    });
+    if(dayAch===HABITS.length){xp+=20;allDoneCount++;}
+    if(r.fatigue!=null&&r.sleep!=null)xp+=5;
+    if(dayComplete)completeDates.push(d);
+  });
+  // 現在の連続日数
+  const set=new Set(completeDates);
+  let streak=0;
+  let cur=new Date();
+  if(!set.has(localDateStr(cur)))cur.setDate(cur.getDate()-1);
+  while(set.has(localDateStr(cur))){streak++;cur.setDate(cur.getDate()-1);}
+  // 最長連続
+  let best=0,run=0,prev=null;
+  completeDates.forEach(d=>{
+    if(prev){const diff=Math.round((new Date(d+"T00:00:00")-new Date(prev+"T00:00:00"))/86400000);run=diff===1?run+1:1;}
+    else run=1;
+    if(run>best)best=run;
+    prev=d;
+  });
+  return {xp,streak,best,allDoneCount,restCount,totals,completeDays:completeDates.length};
+}
+function levelThresholds(n){const t=[0];for(let i=1;i<n;i++)t.push(t[i-1]+100+50*(i-1));return t;}
+function levelInfo(xp){
+  const T=levelThresholds(60);
+  let lv=1;
+  for(let i=0;i<T.length;i++){if(xp>=T[i])lv=i+1;else break;}
+  const curBase=T[lv-1];
+  const next=lv<T.length?T[lv]:curBase+3000;
+  const title=lv<=LEVEL_TITLES.length?LEVEL_TITLES[lv-1]:LEVEL_TITLES[LEVEL_TITLES.length-1];
+  return {lv,title,curBase,next,progress:Math.min(100,Math.round((xp-curBase)/(next-curBase)*100))};
+}
+
 // ── Toast ────────────────────────────────────────────────────────────────
 let toastTimer=null;
-function showToast(msg,type){
+function showToast(msg,type,long){
   type=type||"ok";
   const el=document.getElementById("toast");
   el.textContent=msg;
-  el.style.background=type==="error"?"#3d1a1a":type==="info"?"#1a2a3d":"#1a2d1a";
-  el.style.borderColor=type==="error"?"#ef444466":type==="info"?"#6366F166":"#10b98166";
-  el.classList.add("show");
+  el.style.background=type==="error"?"#3d1a1a":type==="info"?"#1a2a3d":type==="gold"?"#3d2f0a":"#1a2d1a";
+  el.style.borderColor=type==="error"?"#ef444466":type==="info"?"#6366F166":type==="gold"?"#F59E0B99":"#10b98166";
+  el.classList.add("show","pop");
   if(toastTimer)clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>el.classList.remove("show"),2800);
+  toastTimer=setTimeout(()=>{el.classList.remove("show","pop");},long?4200:2800);
 }
 
 // ── 下書き操作 ──────────────────────────────────────────────────────────
@@ -192,44 +281,74 @@ function stageDraft(id){
 }
 function removeItem(id){
   if(ST.draft[ST.selDate])delete ST.draft[ST.selDate][id];
-  if(ST.saved[ST.selDate]&&ST.saved[ST.selDate][id]!=null){ delete ST.saved[ST.selDate][id]; persist(); }
-  renderToday();
+  if(ST.saved[ST.selDate]&&ST.saved[ST.selDate][id]!=null){delete ST.saved[ST.selDate][id];persist();}
+  renderToday();renderStrip();
 }
 function stageFatigue(v){if(!ST.draft[ST.selDate])ST.draft[ST.selDate]={};ST.draft[ST.selDate].fatigue=v;renderToday();}
 function stageSleep(v){if(!ST.draft[ST.selDate])ST.draft[ST.selDate]={};ST.draft[ST.selDate].sleep=v;renderToday();}
 
-// ── 確定 ─────────────────────────────────────────────────────────────────
+// ── 確定（XP獲得＆レベルアップ演出） ───────────────────────────────────
 function commitDay(){
+  const before=calcGame();
+  const beforeLv=levelInfo(before.xp).lv;
+  const beforeBadges=BADGES.filter(b=>b.check(before)).map(b=>b.id);
+
   const dd=ST.draft[ST.selDate]||{};
   if(!ST.saved[ST.selDate])ST.saved[ST.selDate]={};
   Object.assign(ST.saved[ST.selDate],dd);
   const ok=persist();
-  if(ok){
-    delete ST.draft[ST.selDate];
-    showToast("✅ 記録を確定しました！","ok");
-    renderToday();
-  }else{
-    showToast("⚠️ 保存に失敗しました","error");
+  if(!ok){showToast("⚠️ 保存に失敗しました","error");return;}
+  delete ST.draft[ST.selDate];
+
+  const after=calcGame();
+  const afterInfo=levelInfo(after.xp);
+  const gained=after.xp-before.xp;
+  const newBadges=BADGES.filter(b=>b.check(after)&&!beforeBadges.includes(b.id));
+
+  let msg="✅ 記録を確定！ +"+gained+" XP";
+  let type="ok",long=false;
+  if(afterInfo.lv>beforeLv){
+    msg+="\n🎉 レベルアップ！ Lv."+afterInfo.lv+"「"+afterInfo.title+"」";
+    type="gold";long=true;
   }
+  if(newBadges.length){
+    msg+="\n🏅 実績解除: "+newBadges.map(b=>b.emoji+b.name).join(" / ");
+    type="gold";long=true;
+  }
+  if(after.streak>=2)msg+="\n🔥 "+after.streak+"日連続！";
+  showToast(msg,type,long);
+  renderToday();renderStrip();
 }
 
 // ── タブ ─────────────────────────────────────────────────────────────────
 function switchTab(t,btn){
   document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
   btn.classList.add("active");
-  ["today","week","ai"].forEach(x=>document.getElementById("tab-"+x).classList.toggle("hidden",x!==t));
+  ["today","week","game","ai"].forEach(x=>document.getElementById("tab-"+x).classList.toggle("hidden",x!==t));
   ST.tab=t;
-  if(t==="today")renderToday();else if(t==="week")renderWeek();else renderAI();
+  if(t==="today")renderToday();else if(t==="week")renderWeek();else if(t==="game")renderGame();else renderAI();
 }
 
-// ── カウントダウン ───────────────────────────────────────────────────────
+// ── ヘッダー帯 ───────────────────────────────────────────────────────────
+function renderStrip(){
+  const g=calcGame(),li=levelInfo(g.xp);
+  document.getElementById("lvstrip").innerHTML=
+    '<span style="font-weight:800;color:#fff">Lv.'+li.lv+'</span>'+
+    '<span style="color:#c4b5fd;font-weight:700">'+li.title+'</span>'+
+    '<span style="color:#b0b0cc">'+g.xp+' XP</span>'+
+    (g.streak>0?'<span style="color:#F59E0B;font-weight:700">🔥'+g.streak+'日連続</span>':'');
+}
 function renderCountdown(){
-  const md=daysUntil(MARATHON_DATE),td=daysUntil(TOEIC_DATE);
-  const mc=md<=7?"#EF4444":md<=14?"#F59E0B":"#6366F1";
-  document.getElementById("countdown").innerHTML=
-    '<div class="cd-item"><span style="font-size:16px">🏁</span><div><div style="font-size:11px;color:#b0b0cc">函館フルマラソン</div><div style="font-size:15px;font-weight:800;color:'+mc+'">あと'+md+'日</div></div></div>'+
-    '<div style="width:1px;background:rgba(255,255,255,0.15);align-self:stretch"></div>'+
-    '<div class="cd-item"><span style="font-size:16px">📝</span><div><div style="font-size:11px;color:#b0b0cc">TOEIC</div><div style="font-size:15px;font-weight:800;color:#F59E0B">あと'+td+'日</div></div></div>';
+  let h="",first=true;
+  EVENTS.forEach(ev=>{
+    const d=daysUntil(ev.date);
+    if(d<-1)return;
+    if(!first)h+='<div style="width:1px;background:rgba(255,255,255,0.15);align-self:stretch"></div>';
+    first=false;
+    const c=d<=7?"#EF4444":d<=14?"#F59E0B":"#6366F1";
+    h+='<div class="cd-item"><span style="font-size:16px">'+ev.emoji+'</span><div><div style="font-size:11px;color:#b0b0cc">'+ev.name+'</div><div style="font-size:15px;font-weight:800;color:'+c+'">'+(d>=0?"あと"+d+"日":"完了🎉")+'</div></div></div>';
+  });
+  document.getElementById("countdown").innerHTML=h||'<div style="font-size:12px;color:#b0b0cc">直近のイベントはありません</div>';
 }
 
 // ── 今日タブ ─────────────────────────────────────────────────────────────
@@ -243,13 +362,11 @@ function renderToday(){
   const done=HABITS.map(h=>(ss[h.id]>0)&&ss[h.id]>=ST.goals[h.id]);
   let h="";
 
-  // 日付バナー
   h+='<div class="date-banner"><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span style="font-size:18px">📅</span><span style="font-weight:700;font-size:15px;color:#fff">'+fmtFull(sel)+'</span>'+
     (sel===todayStr?'<span class="today-badge" style="background:#6366F1">今日</span>':'')+
     (isCommitted?'<span class="today-badge" style="background:#10B981">確定済み ✓</span>':'')+
     '</div><button class="change-date-btn" onclick="toggleDate()">'+(ST.dateOpen?"閉じる":"日付変更")+'</button></div>';
 
-  // 日付ピッカー
   if(ST.dateOpen){
     h+='<div class="date-picker">';
     selectableDates().forEach(d=>{
@@ -260,16 +377,14 @@ function renderToday(){
     h+='</div>';
   }
 
-  // ピル
   h+='<div class="pill-row">';
   HABITS.forEach((hb,i)=>{
     const inDraft=sd[hb.id]!=null,inSaved=ss[hb.id]!=null;
     h+='<div class="pill" style="background:'+(done[i]?hb.color:inSaved?"rgba(255,255,255,0.18)":inDraft?"rgba(255,255,255,0.12)":"rgba(255,255,255,0.07)")+';color:'+(done[i]?"#fff":inDraft?"#e8e8f0":"#888")+';border:'+(inDraft&&!inSaved?"1px dashed rgba(255,255,255,0.3)":"1px solid transparent")+'">'+hb.icon+' '+hb.label+(done[i]?" ✓":inDraft?" ✏️":"")+'</div>';
   });
   h+='</div>';
-  if(done.every(Boolean))h+='<div class="congrats">🎉 全'+HABITS.length+'つ達成！完璧なバランスです！</div>';
+  if(done.every(Boolean))h+='<div class="congrats">🎉 パーフェクトデー！全'+HABITS.length+'つ達成！(+20XPボーナス)</div>';
 
-  // 習慣カード
   HABITS.forEach(hb=>{
     const sv=ss[hb.id]!=null?ss[hb.id]:null, dv=sd[hb.id]!=null?sd[hb.id]:null;
     const show=dv!=null?dv:sv, confirmed=sv!=null, hd=dv!=null;
@@ -298,7 +413,6 @@ function renderToday(){
     h+='</div>';
   });
 
-  // 疲労度
   h+='<div class="card"><div class="card-top"><span class="c-icon">💪</span><div style="flex:1"><div class="c-label" style="color:#EC4899">疲労度</div><div class="c-goal">この日の身体の状態</div></div>';
   if(rec.fatigue&&!ss.fatigue)h+='<span class="tag" style="color:#fbbf24;background:rgba(251,191,36,0.15)">✏️ 未確定</span>';
   if(ss.fatigue)h+='<span class="tag" style="color:#10B981;background:rgba(16,185,129,0.15)">✓ 確定済み</span>';
@@ -306,7 +420,6 @@ function renderToday(){
   FATIGUE.forEach(fl=>{const a=rec.fatigue===fl.value;h+='<button class="f-btn" onclick="stageFatigue('+fl.value+')" style="background:'+(a?fl.color:"rgba(255,255,255,0.08)")+';border-color:'+(a?fl.color:"transparent")+';color:'+(a?"#fff":"#c8c8e8")+'"><span style="font-size:20px">'+fl.emoji+'</span><span style="font-size:10px;margin-top:2px">'+fl.label+'</span></button>';});
   h+='</div></div>';
 
-  // 睡眠
   h+='<div class="card"><div class="card-top"><span class="c-icon">🌙</span><div style="flex:1"><div class="c-label" style="color:#818CF8">睡眠時間</div><div class="c-goal">前夜の睡眠（時間）</div></div>';
   if(rec.sleep!=null)h+='<span style="font-size:17px;font-weight:700;color:#818CF8">'+rec.sleep+'h</span>';
   if(rec.sleep!=null&&!ss.sleep)h+='<span class="tag" style="color:#fbbf24;background:rgba(251,191,36,0.15);margin-left:4px">✏️</span>';
@@ -314,10 +427,9 @@ function renderToday(){
   [4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,10].forEach(v=>{const a=rec.sleep===v;h+='<button class="sleep-btn" onclick="stageSleep('+v+')" style="background:'+(a?"#818CF8":"rgba(255,255,255,0.08)")+';border-color:'+(a?"#818CF8":"transparent")+';color:'+(a?"#fff":"#c8c8e8")+'">'+v+'h</button>';});
   h+='</div></div>';
 
-  // 確定ボタン
   if(hasDraft){
     const notSet=HABITS.filter(hb=>sd[hb.id]==null&&ss[hb.id]==null).map(hb=>hb.label);
-    h+='<div class="commit-wrap"><div style="font-size:12px;color:#b0b0cc;margin-bottom:10px;text-align:center">'+(notSet.length?notSet.join("・")+" がまだ未入力です":"全項目入力済みです")+'</div><button class="commit-btn" onclick="commitDay()">✅ この日の記録を確定する</button></div>';
+    h+='<div class="commit-wrap"><div style="font-size:12px;color:#b0b0cc;margin-bottom:10px;text-align:center">'+(notSet.length?notSet.join("・")+" がまだ未入力です":"全項目入力済みです！確定でXP獲得 🎮")+'</div><button class="commit-btn" onclick="commitDay()">✅ この日の記録を確定する</button></div>';
   }else if(isCommitted){
     h+='<div style="text-align:center;font-size:13px;color:#10B981;padding:8px 0">✅ この日の記録は確定済みです</div>';
   }
@@ -347,42 +459,128 @@ function renderWeek(){
     });
     h+='</div><div class="week-sum">合計 '+dtStr+' ／ 達成日 '+achDays+'日</div></div>';
   });
-  // 疲労・睡眠
   h+='<div class="card"><div class="card-top"><span class="c-icon">📊</span><div class="c-label" style="color:#A78BFA">疲労・睡眠の推移</div></div><div class="chart-area">';
   days.forEach(d=>{const isTd=d===todayStr,fat=(ST.saved[d]||{}).fatigue||0,slp=(ST.saved[d]||{}).sleep||0,fl=FATIGUE.find(f=>f.value===fat);h+='<div class="chart-col"><div style="font-size:17px;line-height:1;margin-bottom:3px">'+(fl?fl.emoji:"—")+'</div><div style="font-size:10px;font-weight:600;color:#818CF8">'+(slp?slp+"h":"—")+'</div><div class="c-date-lbl" style="color:'+(isTd?"#A78BFA":"#b0b0cc")+';font-weight:'+(isTd?700:400)+'">'+fmtShort(d)+'</div></div>';});
   h+='</div></div>';
   root.innerHTML=h;
 }
 
-// ── AI分析タブ（プロンプト生成方式） ───────────────────────────────────
+// ── 実績タブ ─────────────────────────────────────────────────────────────
+function renderGame(){
+  const root=document.getElementById("tab-game");
+  const g=calcGame(),li=levelInfo(g.xp);
+  let h="";
+
+  // レベルカード
+  h+='<div class="lv-card">'+
+    '<div class="lv-num">Lv.'+li.lv+'</div>'+
+    '<div class="lv-title">'+li.title+'</div>'+
+    '<div style="margin-top:12px" class="bar-bg"><div class="bar-fill" style="width:'+li.progress+'%;background:linear-gradient(90deg,#6366F1,#A78BFA)"></div></div>'+
+    '<div style="font-size:11px;color:#b0b0cc;margin-top:6px">'+g.xp+' XP ／ 次のレベルまで あと'+(li.next-g.xp)+' XP</div>'+
+  '</div>';
+
+  // ステータス
+  h+='<div class="stat-row">'+
+    '<div class="stat-box"><div class="stat-val">🔥'+g.streak+'</div><div class="stat-lbl">連続記録日</div></div>'+
+    '<div class="stat-box"><div class="stat-val">'+g.best+'</div><div class="stat-lbl">最長連続</div></div>'+
+    '<div class="stat-box"><div class="stat-val">⭐'+g.allDoneCount+'</div><div class="stat-lbl">全達成日</div></div>'+
+    '<div class="stat-box"><div class="stat-val">'+g.completeDays+'</div><div class="stat-lbl">記録日数</div></div>'+
+  '</div>';
+
+  // 累計
+  h+='<div class="card"><div style="font-size:14px;font-weight:800;color:#fff;margin-bottom:10px">📈 累計記録</div>'+
+    '<div style="display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:#c8c8e8">'+
+    '<span>📖 英語 '+fmtMin(g.totals.english)+'</span>'+
+    '<span>📚 読書 '+fmtMin(g.totals.reading)+'</span>'+
+    '<span>📐 数学 '+fmtMin(g.totals.math)+'</span>'+
+    '<span>🏃 ラン '+(Math.round(g.totals.running*10)/10)+'km</span>'+
+    '</div></div>';
+
+  // バッジ
+  const unlocked=BADGES.filter(b=>b.check(g)).length;
+  h+='<div class="card"><div style="font-size:14px;font-weight:800;color:#fff;margin-bottom:10px">🏅 実績バッジ（'+unlocked+'/'+BADGES.length+'）</div><div class="badge-grid">';
+  BADGES.forEach(b=>{
+    const on=b.check(g);
+    h+='<div class="badge" style="border-color:'+(on?"#F59E0B88":"rgba(255,255,255,0.12)")+';background:'+(on?"rgba(245,158,11,0.12)":"rgba(255,255,255,0.03)")+';opacity:'+(on?1:0.55)+'">'+
+      '<div class="badge-emoji" style="filter:'+(on?"none":"grayscale(1)")+'">'+b.emoji+'</div>'+
+      '<div class="badge-name" style="color:'+(on?"#F59E0B":"#8888aa")+'">'+b.name+'</div>'+
+      '<div class="badge-desc">'+b.desc+'</div></div>';
+  });
+  h+='</div></div>';
+
+  // ご褒美
+  h+='<div class="card"><div style="font-size:14px;font-weight:800;color:#fff;margin-bottom:6px">🎁 ご褒美リスト</div>'+
+    '<div style="font-size:11px;color:#9090b8;margin-bottom:12px;line-height:1.6">目標XPに到達したら自分にご褒美！欲しいもの・やりたいことを登録しましょう（例: 500XPで高級焼肉、2000XPで欲しかった時計）</div>';
+  if(ST.rewards.length===0){
+    h+='<div style="font-size:12px;color:#8888aa;text-align:center;padding:8px 0 14px">まだご褒美がありません。下から追加！</div>';
+  }
+  ST.rewards.forEach((rw,i)=>{
+    const reached=g.xp>=rw.xp;
+    const pct=Math.min(100,Math.round(g.xp/rw.xp*100));
+    h+='<div class="reward-row" style="margin-bottom:8px;'+(rw.claimed?"opacity:0.6":"")+'">'+
+      '<div style="flex:1"><div style="font-size:13px;font-weight:700;color:#fff">'+esc(rw.title)+'</div>'+
+      '<div style="font-size:10px;color:#b0b0cc;margin:3px 0">'+rw.xp+' XP '+(rw.claimed?"（獲得済み🎉）":reached?"（達成！受け取れます）":"（あと"+(rw.xp-g.xp)+" XP）")+'</div>'+
+      '<div class="bar-bg" style="height:4px"><div class="bar-fill" style="width:'+pct+'%;background:'+(rw.claimed?"#10B981":reached?"#F59E0B":"#6366F1")+'"></div></div></div>'+
+      (rw.claimed?'<span style="font-size:20px">🎉</span>':reached?'<button class="claim-btn" onclick="claimReward('+i+')">受け取る🎁</button>':'')+
+      '<button class="rm-btn" onclick="deleteReward('+i+')">✕</button>'+
+    '</div>';
+  });
+  h+='<div style="display:flex;gap:6px;margin-top:10px">'+
+    '<input class="num-input" placeholder="ご褒美の内容" value="'+esc(ST.rwTitle)+'" oninput="ST.rwTitle=this.value" style="flex:2">'+
+    '<input class="num-input" type="number" inputmode="numeric" placeholder="XP" value="'+ST.rwXp+'" oninput="ST.rwXp=this.value" style="flex:1">'+
+    '<button class="log-btn" style="background:#8B5CF6" onclick="addReward()">追加</button>'+
+  '</div></div>';
+
+  root.innerHTML=h;
+}
+function addReward(){
+  const t=ST.rwTitle.trim(),x=parseInt(ST.rwXp,10);
+  if(!t){showToast("ご褒美の内容を入力してください","error");return;}
+  if(isNaN(x)||x<=0){showToast("目標XPを入力してください","error");return;}
+  ST.rewards.push({title:t,xp:x,claimed:false});
+  ST.rewards.sort((a,b)=>a.xp-b.xp);
+  ST.rwTitle="";ST.rwXp="";
+  persist();
+  showToast("🎁 ご褒美を追加しました！","ok");
+  renderGame();
+}
+function claimReward(i){
+  ST.rewards[i].claimed=true;
+  persist();
+  showToast("🎉 おめでとう！「"+ST.rewards[i].title+"」を受け取りました！\n自分をしっかり労ってください！","gold",true);
+  renderGame();
+}
+function deleteReward(i){
+  ST.rewards.splice(i,1);
+  persist();
+  renderGame();
+}
+
+// ── AI分析タブ ────────────────────────────────────────────────────────────
 function renderAI(){
   const root=document.getElementById("tab-ai"),days=weekDays();
-  const filled=days.filter(d=>{const r=ST.saved[d]||{};return r.english!=null||r.reading!=null||r.math!=null||r.running!=null||r.fatigue!=null||r.sleep!=null;}).length;
+  const filled=days.filter(d=>{const r=ST.saved[d]||{};return HABITS.some(h=>r[h.id]!=null)||r.fatigue!=null||r.sleep!=null;}).length;
   const pct=Math.round(filled/7*100);
   const cc=filled===0?"#6b7280":filled<3?"#F59E0B":filled<7?"#6366F1":"#10B981";
   const msg=filled===0?"まだ確定済みの記録がありません":filled<3?"確定済み"+filled+"日分。少ないですが分析できます。":filled<7?"確定済み"+filled+"日分。データが増えるほど精度が上がります。":"7日分揃っています！🎉";
   let h='<div class="card" style="border-color:'+cc+'66"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span style="font-size:13px;color:#b0b0cc">📊 データカバレッジ（確定済み）</span><span style="font-size:13px;font-weight:700;color:'+cc+'">'+filled+' / 7日</span></div><div class="bar-bg"><div class="bar-fill" style="width:'+pct+'%;background:'+cc+'"></div></div><div style="font-size:12px;color:#b0b0cc;margin-top:7px">'+msg+'</div></div>';
   h+='<div class="card"><div style="font-size:17px;font-weight:800;color:#fff;margin-bottom:8px">🤖 AIコーチ分析</div>';
-  h+='<div style="font-size:13px;color:#c8c8e8;line-height:1.7;margin-bottom:14px">Safari単体ではAIに直接接続できないため、下のボタンで<strong style="color:#fff">分析用プロンプトをコピー</strong>し、Claudeアプリに貼り付けて分析してもらう方式です。</div>';
+  h+='<div style="font-size:13px;color:#c8c8e8;line-height:1.7;margin-bottom:14px">下のボタンで<strong style="color:#fff">分析用プロンプトをコピー</strong>し、Claudeアプリに貼り付けて分析してもらいましょう。</div>';
   h+='<button class="save-btn" onclick="copyAIPrompt()" style="width:100%">📋 分析プロンプトをコピー</button></div>';
   root.innerHTML=h;
 }
 function buildAIPrompt(){
   const days=weekDays();
   const summary=days.map(d=>{const r=ST.saved[d]||{};return{date:fmtShort(d),英語分:r.english??null,読書分:r.reading??null,数学分:r.math??null,ランニングkm:r.running??null,疲労度:r.fatigue??null,睡眠h:r.sleep??null};});
-  const md=daysUntil(MARATHON_DATE),td=daysUntil(TOEIC_DATE);
-  return "あなたは健康・習慣コーチのAIです。以下のデータを分析し具体的なアドバイスを日本語でお願いします。\n\n【重要イベント】\n- 函館フルマラソン: "+MARATHON_DATE+"（あと"+md+"日）\n- TOEIC: "+TOEIC_DATE+"頃（あと"+td+"日）\n\n【1日の目標】英語"+ST.goals.english+"分 / 読書"+ST.goals.reading+"分 / 数学"+ST.goals.math+"分 / ランニング"+ST.goals.running+"km\n\n【過去7日の記録】※値0=休養日\n"+JSON.stringify(summary,null,2)+"\n\n【疲労度】1=元気〜5=ヘロヘロ\n\n以下を分析してください:\n1. 現状サマリー\n2. 疲労・睡眠と学習・運動のバランス\n3. マラソン/TOEICに向けた目標値の最適化提案（テーパリング含む）\n4. 明日・来週の優先行動3つ";
+  const g=calcGame(),li=levelInfo(g.xp);
+  let evTxt="";
+  EVENTS.forEach(ev=>{const d=daysUntil(ev.date);if(d>=0)evTxt+="- "+ev.name+": "+ev.date+"（あと"+d+"日）\n";});
+  return "あなたは健康・習慣コーチのAIです。以下のデータを分析し具体的なアドバイスを日本語でお願いします。\n\n【重要イベント】\n"+evTxt+"\n【1日の目標】英語"+ST.goals.english+"分 / 読書"+ST.goals.reading+"分 / 数学"+ST.goals.math+"分 / ランニング"+ST.goals.running+"km\n\n【ゲーム進捗】Lv."+li.lv+"「"+li.title+"」/ "+g.xp+"XP / 連続"+g.streak+"日（最長"+g.best+"日）/ 全達成"+g.allDoneCount+"回\n\n【過去7日の記録】※値0=休養日\n"+JSON.stringify(summary,null,2)+"\n\n【疲労度】1=元気〜5=ヘロヘロ\n\n以下を分析してください:\n1. 現状サマリー\n2. 疲労・睡眠と学習・運動のバランス\n3. イベントに向けた目標値の最適化提案\n4. 明日・来週の優先行動3つ\n5. モチベーション維持のためのゲーム的なチャレンジ提案1つ";
 }
-function copyAIPrompt(){
-  const txt=buildAIPrompt();
-  copyToClipboard(txt,"分析プロンプトをコピーしました！Claudeアプリに貼り付けてください");
-}
+function copyAIPrompt(){copyToClipboard(buildAIPrompt(),"分析プロンプトをコピーしました！Claudeアプリに貼り付けてください");}
 
 // ── データ管理 ──────────────────────────────────────────────────────────
-function exportData(){
-  const txt=JSON.stringify({saved:ST.saved,goals:ST.goals});
-  copyToClipboard(txt,"バックアップをコピーしました！安全な場所に保管してください");
-}
+function exportData(){copyToClipboard(JSON.stringify({saved:ST.saved,goals:ST.goals,rewards:ST.rewards}),"バックアップをコピーしました！安全な場所に保管を");}
 function openImport(){document.getElementById("import-overlay").classList.remove("hidden");}
 function closeImport(){document.getElementById("import-overlay").classList.add("hidden");}
 function importData(){
@@ -390,12 +588,10 @@ function importData(){
   if(!txt){showToast("データを貼り付けてください","error");return;}
   try{
     const d=JSON.parse(txt);
-    if(d.saved)ST.saved=d.saved;
-    if(d.goals)ST.goals=d.goals;
-    persist();
-    closeImport();
+    if(d.saved)ST.saved=d.saved;if(d.goals)ST.goals=d.goals;if(d.rewards)ST.rewards=d.rewards;
+    persist();closeImport();
     showToast("✅ バックアップから復元しました","ok");
-    renderToday();renderCountdown();
+    renderToday();renderCountdown();renderStrip();
   }catch(e){showToast("データの形式が正しくありません","error");}
 }
 function copyToClipboard(txt,okMsg){
@@ -409,6 +605,7 @@ function fallbackCopy(txt,okMsg){
   try{document.execCommand("copy");showToast(okMsg,"ok");}catch(e){showToast("コピーに失敗しました","error");}
   document.body.removeChild(ta);
 }
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
 
 // ── 設定 ─────────────────────────────────────────────────────────────────
 function openSettings(){
@@ -421,11 +618,12 @@ function closeSettings(){document.getElementById("settings-overlay").classList.a
 function saveGoals(){
   HABITS.forEach(hb=>{const el=document.getElementById("goal-"+hb.id);if(el){const v=hb.unit==="分"?parseInt(el.value):parseFloat(el.value);if(!isNaN(v)&&v>0)ST.goals[hb.id]=v;}});
   persist();closeSettings();showToast("目標を保存しました ✓","ok");
-  renderToday();
+  renderToday();renderStrip();
 }
 
 // ── 初期化 ───────────────────────────────────────────────────────────────
 loadData();
+renderStrip();
 renderCountdown();
 renderToday();
 </script>
